@@ -55,7 +55,7 @@ def voting_Server():
         print(str(e))
     print("Waiting for the connection")
 
-    serversocket.listen(5)
+    serversocket.listen(10)
 
     print( "Listening on " + str(host) + ":" + str(port))
 
