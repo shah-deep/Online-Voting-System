@@ -102,7 +102,7 @@ def taking_data_voter(name,gender,zone,city,passw):
                     "Passw":[passw],
                     "hasVoted":[0]},)
 
-        df=df.append(df1,ignore_index=True)
+        df = pd.concat([df, df1],ignore_index=True)
 
     df.to_csv(path/'voterList.csv')
 
