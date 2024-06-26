@@ -12,17 +12,25 @@ def client_thread(connection):
 
     #verify voter details
     log = (data.decode()).split(' ')
-    log[0] = int(log[0])
-    if(df.verify(log[0],log[1])):                                #3 Authenticate
-        if(df.isEligible(log[0])):
-            print('Voter Logged in... ID:'+str(log[0]))
-            connection.send("Authenticate".encode())
+    try:
+        log[0] = int(log[0])
+
+        if(df.verify(log[0],log[1])):                                #3 Authenticate
+            if(df.isEligible(log[0])):
+                print('Voter Logged in... ID:'+str(log[0]))
+                connection.send("Authenticate".encode())
+            else:
+                print('Vote Already Cast by ID:'+str(log[0]))
+                connection.send("VoteCasted".encode())
         else:
-            print('Vote Already Cast by ID:'+str(log[0]))
-            connection.send("VoteCasted".encode())
-    else:
-        print('Invalid Voter')
+            print('Invalid Voter')
+            connection.send("InvalidVoter".encode())
+            return
+
+    except:
+        print('Invalid Credentials')
         connection.send("InvalidVoter".encode())
+        return
 
 
     data = connection.recv(1024)                                    #4 Get Vote

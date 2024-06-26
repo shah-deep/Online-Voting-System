@@ -4,15 +4,19 @@ from tkinter import *
 from VotingPage import votingPg
 
 def establish_connection():
-    host = socket.gethostname()
-    port = 4001
-    client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    client_socket.connect((host, port))
-    print(client_socket)
-    message = client_socket.recv(1024)      #connection establishment message   #1
-    if(message.decode()=="Connection Established"):
-        return client_socket
-    else:
+    try:
+        host = socket.gethostname()
+        port = 4001
+        client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        client_socket.connect((host, port))
+        print(client_socket)
+        message = client_socket.recv(1024)      #connection establishment message   #1
+        if(message.decode()=="Connection Established"):
+            return client_socket
+        else:
+            return 'Failed'
+    except:
+        print("Connection Failed, check if server is running...")
         return 'Failed'
 
 
@@ -21,9 +25,16 @@ def failed_return(root,frame1,client_socket,message):
         widget.destroy()
     message = message + "... \nTry again..."
     Label(frame1, text=message, font=('Helvetica', 12, 'bold')).grid(row = 1, column = 1)
-    client_socket.close()
+    try:
+        client_socket.close()
+    except:
+        return
 
 def log_server(root,frame1,client_socket,voter_ID,password):
+    if(not (voter_ID and password)):
+        voter_ID = "0"
+        password = "x"
+    
     message = voter_ID + " " + password
     client_socket.send(message.encode()) #2
 
@@ -53,6 +64,7 @@ def voterLogin(root,frame1):
     if(client_socket == 'Failed'):
         message = "Connection failed"
         failed_return(root,frame1,client_socket,message)
+        return
 
     root.title("Voter Login")
     for widget in frame1.winfo_children():
@@ -64,7 +76,7 @@ def voterLogin(root,frame1):
     Label(frame1, text="Password:   ", anchor="e", justify=LEFT).grid(row = 3,column = 0)
 
     voter_ID = tk.StringVar()
-    name = tk.StringVar()
+    # name = tk.StringVar()
     password = tk.StringVar()
 
     e1 = Entry(frame1, textvariable = voter_ID)

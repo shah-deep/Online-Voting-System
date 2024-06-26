@@ -24,19 +24,19 @@ def showVotes(root,frame1):
 
     vote = StringVar(frame1,"-1")
 
-    bjpLogo = ImageTk.PhotoImage((Image.open("img/bjp.png")).resize((35,35),Image.ANTIALIAS))
+    bjpLogo = ImageTk.PhotoImage((Image.open("img/bjp.png")).resize((35,35),Image.LANCZOS))
     bjpImg = Label(frame1, image=bjpLogo).grid(row = 2,column = 0)
 
-    congLogo = ImageTk.PhotoImage((Image.open("img/cong.jpg")).resize((25,38),Image.ANTIALIAS))
+    congLogo = ImageTk.PhotoImage((Image.open("img/cong.jpg")).resize((25,38),Image.LANCZOS))
     congImg = Label(frame1, image=congLogo).grid(row = 3,column = 0)
 
-    aapLogo = ImageTk.PhotoImage((Image.open("img/aap.png")).resize((45,30),Image.ANTIALIAS))
+    aapLogo = ImageTk.PhotoImage((Image.open("img/aap.png")).resize((45,30),Image.LANCZOS))
     aapImg = Label(frame1, image=aapLogo).grid(row = 4,column = 0)
 
-    ssLogo = ImageTk.PhotoImage((Image.open("img/ss.png")).resize((40,35),Image.ANTIALIAS))
+    ssLogo = ImageTk.PhotoImage((Image.open("img/ss.png")).resize((40,35),Image.LANCZOS))
     ssImg = Label(frame1, image=ssLogo).grid(row = 5,column = 0)
 
-    notaLogo = ImageTk.PhotoImage((Image.open("img/nota.jpg")).resize((35,25),Image.ANTIALIAS))
+    notaLogo = ImageTk.PhotoImage((Image.open("img/nota.jpg")).resize((35,25),Image.LANCZOS))
     notaImg = Label(frame1, image=notaLogo).grid(row = 6,column = 0)
 
 
